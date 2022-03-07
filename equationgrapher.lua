@@ -5,13 +5,14 @@ local command = require "core.command"
 local common = require "core.common"
 local config = require "core.config"
 local View = require "core.view"
+local style = require "core.style"
 
 config.plugins.equationgrapher = {
 	point_size = 3,
 	steps = 10000,
-	background_color = {common.color("#F8F8F8")},
-	cross_color = {common.color("#999999")},
-	graph_color = {common.color("#000000")}
+	background_color = style.background,
+	cross_color = style.text,
+	graph_color = style.caret
 }
 
 local GraphView = View:extend()
@@ -48,7 +49,7 @@ function GraphView:draw()
 	renderer.draw_rect(xPos, yPos+ySize/2, xSize, pointSize, cross_color)
 	
 	--draw equation
-	for t=0, 1, 1/math.max(10, conf.steps) do
+	for t=0, 1, 1/math.max(500, conf.steps) do
 		renderer.draw_rect(
 			(xPos+xSize/2)+common.lerp(-xSize/2, xSize/2, t),
 			(yPos+ySize/2)-self.equation(common.lerp(-xSize/2, xSize/2, t)),
