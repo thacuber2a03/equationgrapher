@@ -20,3 +20,7 @@ conf.background_color = {common.color("#F8F8F8")} -- self explanatory
 conf.cross_color = {common.color("#999999")} -- color of the background's cross.
 conf.graph_color = {common.color("#000000")} -- color of the graph.
 ```
+## Screenshots
+
+![image](https://user-images.githubusercontent.com/70547062/157131397-8264e99d-2329-4294-b9eb-f26afe55baeb.png)
+![image](https://user-images.githubusercontent.com/70547062/157131390-5a70e713-fcce-4732-96e4-31abe4add608.png)
