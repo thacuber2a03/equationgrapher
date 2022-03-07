@@ -1,32 +1,33 @@
 -- mod-version:2 -- lite-xl 2.0
 
--- Equation Grapher by @thacuber2a03
--- https://twitter.com/thacuber2a03
-
 local core = require "core"
 local command = require "core.command"
 local common = require "core.common"
 local config = require "core.config"
 local View = require "core.view"
-local console = require "plugins.console"
 
 config.plugins.equationgrapher = {
 	point_size = 3,
+	steps = 10000,
 	background_color = {common.color("#F8F8F8")},
 	cross_color = {common.color("#999999")},
-	plot_color = {common.color("#000000")}
+	graph_color = {common.color("#000000")}
 }
 
 local GraphView = View:extend()
 
 function GraphView:new(equation)
 	GraphView.super.new(self)
-	self.eq = equation
-	self.equation = assert(load("return function(x) return "..equation.." end"))()
+	if equation == "" then error("No equation inputted.") end
+	self.name = equation
+	local eq = assert(load("return function(x) return "..equation.." end"))()
+	if not pcall(eq, 0) then error("Someting went wrong. Doublecheck your equation and try again.") end
+	if type(eq(0)) == "string" then error("Why is your equation returning a string?!") end
+	self.equation = eq
 end
 
 function GraphView:get_name()
-	return "Graph: y = "..self.eq
+	return "Graph: y = "..self.name
 end
 
 function GraphView:update()
@@ -34,9 +35,9 @@ function GraphView:update()
 end
 
 function GraphView:draw()
+	self:draw_background(config.plugins.equationgrapher.background_color)
+	
 	local conf = config.plugins.equationgrapher
-	self:draw_background(conf.background_color)
-	-- some local variables
 	local xPos, yPos = self.position.x, self.position.y
 	local xSize, ySize = self.size.x, self.size.y
 	local pointSize = conf.point_size
@@ -47,10 +48,11 @@ function GraphView:draw()
 	renderer.draw_rect(xPos, yPos+ySize/2, xSize, pointSize, cross_color)
 	
 	--draw equation
-	for t=0, 1, 0.001 do
+	for t=0, 1, 1/math.max(10, conf.steps) do
 		renderer.draw_rect(
-			(xPos+xSize/2)+common.lerp(-xSize/2, xSize/2, t), (yPos+ySize/2)-self.equation(common.lerp(-xSize/2, xSize/2, t)),
-			pointSize, pointSize, {conf.plot_colorS}
+			(xPos+xSize/2)+common.lerp(-xSize/2, xSize/2, t),
+			(yPos+ySize/2)-self.equation(common.lerp(-xSize/2, xSize/2, t)),
+			pointSize, pointSize, conf.graph_color
 		)
 	end
 end
