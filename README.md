@@ -4,7 +4,10 @@ A plugin for Lite XL that graphs y=x equations.
 ## How to use
 To use, open it through the command palette as you would with any other command.
 `x` is the plugin's independent variable.
-You can also use Lua's functions, but you need to wrap them inside parentheses and then call them, like `(function)()`
+You can also use Lua's functions, but you need to wrap them inside parentheses and then call them, like 
+```lua
+(function(x) --[[your code here]] end)(x)
+```
 
 NOTE: When making a graph, you should scale it up, since the grapher uses pixels as units.
 
