@@ -1,5 +1,5 @@
 # equationgrapher
-A plugin for Lite XL that graphs y/x equations.
+A plugin for Lite XL that graphs y=x equations.
 
 ## How to use
 To use, open it through the command palette as you would with any other command.
