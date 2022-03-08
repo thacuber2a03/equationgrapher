@@ -9,8 +9,6 @@ You can also use Lua's functions, but you need to wrap them inside parentheses a
 (function(x) --[[your code here]] end)(x)
 ```
 
-NOTE: When making a graph, you should scale it up, since the grapher uses pixels as units.
-
 ## Configuration
 
 You can configure the grapher's settings through the user module:
