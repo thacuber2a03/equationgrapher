@@ -22,6 +22,6 @@ conf.graph_color = {common.color("#000000")} -- color of the graph.
 ```
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/70547062/157139046-ff49ea5c-7965-449e-8c67-6058f4882259.png)
 ![image](https://user-images.githubusercontent.com/70547062/157139008-29eea875-9456-4e43-8e9c-bfe7c4b9d051.png)
+![image](https://user-images.githubusercontent.com/70547062/157139046-ff49ea5c-7965-449e-8c67-6058f4882259.png)
 ![image](https://user-images.githubusercontent.com/70547062/157139011-07259591-d2b9-42c7-988d-b7da53623a52.png)
