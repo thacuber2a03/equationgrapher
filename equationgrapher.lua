@@ -12,7 +12,8 @@ config.plugins.equationgrapher = {
 	steps = 10000,
 	background_color = style.background,
 	cross_color = style.text,
-	graph_color = style.caret
+	graph_color = style.caret,
+	font = style.big_font
 }
 
 local GraphView = View:extend()
@@ -22,9 +23,9 @@ function GraphView:new(equation)
 	if equation == "" then error("No equation inputted.") end
 	self.name = equation
 	local eq = assert(load("return function(x) return "..equation.." end"))()
-	if not pcall(eq, 0) then error("Someting went wrong. Doublecheck your equation and try again.") end
-	if type(eq(0)) == "string" then error("Why is your equation returning a string?!") end
+	if type(eq(0)) ~= "number" then error("Why is your equation returning a "..type(eq(0)).."?!") end
 	self.equation = eq
+	self.range = 1000
 end
 
 function GraphView:get_name()
@@ -45,17 +46,26 @@ function GraphView:draw()
 	
 	-- draw cross
 	local cross_color = conf.cross_color
+	local font = conf.font
+	local y = ySize/2-font:get_height()*0.2
 	renderer.draw_rect(xPos+xSize/2, yPos, pointSize, ySize, cross_color)
 	renderer.draw_rect(xPos, yPos+ySize/2, xSize, pointSize, cross_color)
+	renderer.draw_text(font, tostring(-self.range), xPos, y, cross_color)
+	renderer.draw_text(font, tostring(self.range), xPos+(xSize-(font:get_width(self.range))), y, cross_color)
+	renderer.draw_text(font, "0", xPos+xSize/2+font:get_width("0")*0.2, y, cross_color)
 	
 	--draw equation
 	for t=0, 1, 1/math.max(500, conf.steps) do
 		renderer.draw_rect(
 			(xPos+xSize/2)+common.lerp(-xSize/2, xSize/2, t),
-			(yPos+ySize/2)-self.equation(common.lerp(-xSize/2, xSize/2, t)),
+			(yPos+ySize/2)-self.equation(common.lerp(-self.range, self.range, t)),
 			pointSize, pointSize, conf.graph_color
 		)
 	end
+end
+
+function GraphView:on_mouse_wheel(d)
+	self.range = self.range + d*10
 end
 
 command.add(nil, {
