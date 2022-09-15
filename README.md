@@ -17,9 +17,10 @@ You can configure the grapher's settings through the user module:
 local conf = config.plugins.equationgrapher
 conf.point_size = 3 -- size of the grapher's dots
 conf.steps = 10000 -- amount of steps that the equation takes to render
-conf.background_color = {common.color("#F8F8F8")} -- self explanatory
-conf.cross_color = {common.color("#999999")} -- color of the background's cross.
-conf.graph_color = {common.color("#000000")} -- color of the graph.
+conf.background_color = style.background -- self explanatory
+conf.cross_color = style.text -- color of the background's cross.
+conf.graph_color = style.caret -- color of the graph.
+conf.font = style.font -- yes
 ```
 ## Screenshots
 
