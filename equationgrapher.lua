@@ -1,4 +1,4 @@
--- mod-version:2 -- lite-xl 2.0
+-- mod-version:3 -- lite-xl 2.1
 
 local core = require "core"
 local command = require "core.command"
@@ -7,14 +7,36 @@ local config = require "core.config"
 local View = require "core.view"
 local style = require "core.style"
 
-config.plugins.equationgrapher = {
+config.plugins.equationgrapher = common.merge({
 	point_size = 3,
 	steps = 10000,
 	background_color = style.background,
 	cross_color = style.text,
 	graph_color = style.caret,
-	font = style.big_font
-}
+	font = style.big_font,
+	config_spec = {
+		name = "Equation Grapher",
+		{
+			label = "Point Size",
+			description = "Enter point size.",
+			path = "point_size",
+			type = "number",
+			default = 3,
+			min = 1,
+			max = 100
+		},
+		{
+			label = "Steps",
+			description = "Enter the steps.",
+			path = "steps",
+			type = "number",
+			default = 10000,
+			min = 1,
+			max = 100000000
+		},
+	}
+},config.plugins.equationgrapher) 
+
 
 local GraphView = View:extend()
 
@@ -70,10 +92,10 @@ end
 
 command.add(nil, {
 	["equation-grapher:graph-equation"] = function()
-		core.command_view:enter("Equation to graph", function(e)
+		core.command_view:enter("Equation to graph", {submit=function(e)
 			local node = core.root_view:get_active_node()
 			node:add_view(GraphView(e))
-		end)
+		end})
 	end,
 })
 
