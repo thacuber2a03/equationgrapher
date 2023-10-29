@@ -1,0 +1,15 @@
+{
+  "addons": [
+    {
+      "id": "equationgrapher",
+      "version": "1.0",
+      "mod_version": "3",
+      "description": "A plugin for Lite XL that graphs y=x equations.",
+      "files": [
+        {
+          "url": "https://github.com/thacuber2a03/equationgrapher/blob/main/equationgrapher.lua"
+        }
+      ]
+    }
+  ]
+}
