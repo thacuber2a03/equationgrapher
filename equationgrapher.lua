@@ -1,4 +1,4 @@
--- mod-version:2 -- lite-xl 2.0
+-- mod-version:3
 
 local core = require "core"
 local command = require "core.command"
@@ -70,10 +70,10 @@ end
 
 command.add(nil, {
 	["equation-grapher:graph-equation"] = function()
-		core.command_view:enter("Equation to graph", function(e)
+		core.command_view:enter("Equation to graph", { submit = function(e)
 			local node = core.root_view:get_active_node()
 			node:add_view(GraphView(e))
-		end)
+		end })
 	end,
 })
 
