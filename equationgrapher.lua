@@ -65,7 +65,7 @@ function GraphView:draw()
 end
 
 function GraphView:on_mouse_wheel(d)
-	self.range = self.range + d*10
+	self.range = self.range + d*-10
 end
 
 command.add(nil, {
