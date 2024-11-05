@@ -1,0 +1,12 @@
+{
+  "addons": [
+    {
+      "id": "equationgrapher",
+      "mod_version": "3",
+      "name": "equationgrapher",
+      "path": "/equationgrapher.lua",
+      "type": "plugin",
+      "version": "0.2"
+    }
+  ]
+}
